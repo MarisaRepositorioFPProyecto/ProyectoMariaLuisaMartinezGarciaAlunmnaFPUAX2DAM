@@ -39,11 +39,12 @@ class DatabaseManager(context: Context) {
     }
 
     // función para insertar un registro
-    fun insertRegistro(usuarioId: Int, nivel: Float, fecha: String, hora: String, notaLibre: String) {
+    fun insertRegistro(usuarioId: Int, nivel: Float, insulina: Float, fecha: String, hora: String, notaLibre: String) {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
             put("usuario_id", usuarioId)
             put("nivel", nivel)
+            put("insulina", insulina)
             put("fecha", fecha)
             put("hora", hora)
             put("nota_libre", notaLibre)
@@ -53,23 +54,6 @@ class DatabaseManager(context: Context) {
         db.close()
     }
 
-
-    // Leer todos los usuarios
-//    @SuppressLint("Range")
-//    fun getAllUsuarios(): List<String> {
-//        val usuariosList = mutableListOf<String>()
-//        val db = dbHelper.readableDatabase
-//        val cursor: Cursor = db.rawQuery("SELECT * FROM usuarios", null)
-//
-//        while (cursor.moveToNext()) {
-//            val nombre = cursor.getString(cursor.getColumnIndex("nombre_usuario"))
-//            usuariosList.add(nombre)
-//        }
-//
-//        cursor.close()
-//        db.close()
-//        return usuariosList
-//    }
     @SuppressLint("Range")
     fun getAllUsuarios(): List<Usuario> {
         val usuariosList = mutableListOf<Usuario>()
@@ -126,18 +110,84 @@ class DatabaseManager(context: Context) {
 
     // esto lo utilizo para leer los registros por usuario
     @SuppressLint("Range")
-    fun getRegistrosByUsuarioId(usuarioId: Int): List<String> {
-        val registrosList = mutableListOf<String>()
+    fun getRegistrosByUsuarioId(usuarioId: Int): List<Registro> {
+        val registrosList = mutableListOf<Registro>()
         val db = dbHelper.readableDatabase
-        val cursor: Cursor = db.rawQuery("SELECT * FROM registros WHERE usuario_id = ?", arrayOf(usuarioId.toString()))
+
+        val cursor = db.rawQuery("SELECT * FROM registros WHERE usuario_id = ?", arrayOf(usuarioId.toString()))
 
         while (cursor.moveToNext()) {
-            val registro = cursor.getString(cursor.getColumnIndex("nota_libre"))
+            val id = cursor.getInt(cursor.getColumnIndex("id"))
+            val nivel = cursor.getFloat(cursor.getColumnIndex("nivel"))
+            val insulina = cursor.getFloat(cursor.getColumnIndex("insulina"))
+            val fecha = cursor.getString(cursor.getColumnIndex("fecha"))
+            val hora = cursor.getString(cursor.getColumnIndex("hora"))
+            val nota = cursor.getString(cursor.getColumnIndex("nota_libre"))
+
+            val registro = Registro(id, nivel, insulina, fecha, hora, nota)
             registrosList.add(registro)
         }
 
         cursor.close()
         db.close()
         return registrosList
+    }
+@SuppressLint("Range")
+fun getRegistroById(registroId: Int): Registro? {
+    val db = dbHelper.readableDatabase
+    val cursor = db.rawQuery("SELECT * FROM registros WHERE id = ?", arrayOf(registroId.toString()))
+
+    var registro: Registro? = null
+    if (cursor.moveToFirst()) {
+        val id = cursor.getInt(cursor.getColumnIndex("id"))
+        val nivel = cursor.getFloat(cursor.getColumnIndex("nivel"))
+        val insulina = cursor.getFloat(cursor.getColumnIndex("insulina"))
+        val fecha = cursor.getString(cursor.getColumnIndex("fecha"))
+        val hora = cursor.getString(cursor.getColumnIndex("hora"))
+        val nota = cursor.getString(cursor.getColumnIndex("nota_libre"))
+
+        registro = Registro(id, nivel, insulina, fecha, hora, nota)
+    }
+    cursor.close()
+    db.close()
+    return registro
+}
+    fun updateRegistro(id: Int, nivel: Float, insulina: Float, fecha: String, hora: String, notaLibre: String): Boolean {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("nivel", nivel)
+            put("insulina", insulina)
+            put("fecha", fecha)
+            put("hora", hora)
+            put("nota_libre", notaLibre)
+        }
+        val rowsAffected = db.update("registros", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsAffected > 0
+    }
+
+    fun deleteRegistro(id: Int): Boolean {
+        val db = dbHelper.writableDatabase
+        val rowsDeleted = db.delete("registros", "id = ?", arrayOf(id.toString()))
+        db.close()
+        return rowsDeleted > 0
+    }
+
+    // Aquí eliminar todos los registros de un usuario
+    fun deleteAllRegistrosByUsuarioId(usuarioId: Int): Boolean {
+        val db = dbHelper.writableDatabase
+        val rowsDeleted = db.delete("registros", "usuario_id = ?", arrayOf(usuarioId.toString()))
+        db.close()
+        return rowsDeleted > 0
+    }
+
+    // para eliminar completamente un usuario (y sus registros primero)
+    // NOTA: al final no lo utilizo porque no tiene sentido ya que con borrar la aplicación es suficiente
+    fun deleteUsuarioById(usuarioId: Int): Boolean {
+        val db = dbHelper.writableDatabase
+        db.delete("registros", "usuario_id = ?", arrayOf(usuarioId.toString()))
+        val rowsDeleted = db.delete("usuarios", "id = ?", arrayOf(usuarioId.toString()))
+        db.close()
+        return rowsDeleted > 0
     }
 }

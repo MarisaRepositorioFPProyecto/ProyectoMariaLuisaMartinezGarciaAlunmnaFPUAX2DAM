@@ -7,10 +7,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
-
+import com.example.app_diabetes.Frases
 class MainActivity : ComponentActivity() {
 
     private lateinit var dbManager: DatabaseManager
@@ -21,19 +22,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         dbManager = DatabaseManager(this)
         validator = ValidationUser()
+        val fraseAleatoria = Frases.frases.random()
+        findViewById<TextView>(R.id.subtitle).text = fraseAleatoria
 
     }
     fun crearUsuario(view: View) {
-       //val intent= Intent(this,LoginActivity::class.java).apply {}
         setContentView(R.layout.newuser)
-
-
         val usuarios = dbManager.getAllUsuarios()
         for (usuario in usuarios) {
             Log.d("Usuarios", usuario.nombre)
         }
 
-        //startActivity(intent)
+    }
+    fun abrirRecuperarClave (view: View) {
+        setContentView(R.layout.recuperarclave)
     }
     @SuppressLint("MissingInflatedId")
     fun registrarUsuario (view: View) {
@@ -51,6 +53,19 @@ class MainActivity : ComponentActivity() {
 
         dbManager.insertUsuario(nombre, email, clave, "Admin")
         Toast.makeText(this, "¡Usuario registrado con éxito!", Toast.LENGTH_SHORT).show()
+
+        val usuariosActualizados = dbManager.getAllUsuarios()
+        val nuevoUsuario = usuariosActualizados.find { it.nombre == nombre && it.email == email }
+
+        if (nuevoUsuario != null) {
+            val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+            prefs.edit().putInt("usuario_id", nuevoUsuario.id).apply()
+
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Error al guardar usuario", Toast.LENGTH_SHORT).show()
+        }
 
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
@@ -72,7 +87,7 @@ class MainActivity : ComponentActivity() {
 
         // Validar si el usuario existe
         val usuarios = dbManager.getAllUsuarios()
-
+        Log.d("USUARIOS", usuarios.toString())
         // Busca al usuario por el nombre de usuario (compara por 'nombre')
         val usuarioExistente = usuarios.find { it.nombre == nombre }
 
@@ -80,6 +95,8 @@ class MainActivity : ComponentActivity() {
             // Verificar la contraseña
             if (usuarioExistente.clave == clave) {
                 // Si la contraseña es correcta, iniciar sesión
+                val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+                prefs.edit().putInt("usuario_id", usuarioExistente.id).apply()
                 Toast.makeText(this, "¡Bienvenido, $nombre!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
@@ -90,6 +107,28 @@ class MainActivity : ComponentActivity() {
         } else {
             // Si el usuario no existe
             Toast.makeText(this, "Usuario no registrado", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun recuperarClavePorEmail(view: View) {
+        val emailInput = findViewById<EditText>(R.id.recoverEmailEditText)
+        val email = emailInput.text.toString().trim()
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Por favor, introduce tu email", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val usuario = dbManager.getAllUsuarios().find { it.email.equals(email, ignoreCase = true) }
+        Log.d("USUARIOS2", usuario.toString())
+        if (usuario != null) {
+            Log.d("USUARIOS3", usuario.toString())
+            val clueText = findViewById<TextView>(R.id.clueTextView)
+            clueText.text = "Tu clave es: ${usuario.clave}"
+            clueText.visibility = View.VISIBLE
+            Toast.makeText(this, "Tu clave es: ${usuario.clave}", Toast.LENGTH_LONG).show()
+        } else {
+            Log.d("USUARIOS4", usuario.toString())
+            Toast.makeText(this, "No se encontró ningún usuario con ese email", Toast.LENGTH_SHORT).show()
         }
     }
 

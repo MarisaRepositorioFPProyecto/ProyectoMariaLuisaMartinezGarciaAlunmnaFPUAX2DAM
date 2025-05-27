@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_brown">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="24dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/bg_cream">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="32dp">
+
+
+            <TextView
+                android:id="@+id/notaTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aquí irá tu nota"
+                android:textColor="@color/text_dark"
+                android:textSize="18sp"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="VOLVER"
+                android:onClick="volverAtras"
+                android:backgroundTint="@color/btn_orange"
+                android:textColor="@android:color/white"
+                app:layout_constraintTop_toBottomOf="@id/notaTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <!-- Logo encima del CardView -->
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/logo_control_diabetes"
+        android:elevation="10dp"
+        android:contentDescription="@string/app_name"/>
+</FrameLayout>
+
+

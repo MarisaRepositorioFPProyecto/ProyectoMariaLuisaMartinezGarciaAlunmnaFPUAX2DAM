@@ -27,7 +27,7 @@
                 android:id="@+id/loginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nuevo Registro"
+                android:text="Editar datos"
                 android:textColor="@color/text_dark"
                 android:textSize="40sp"
                 android:textStyle="bold"
@@ -37,28 +37,16 @@
                 app:layout_constraintHorizontal_bias="0.50"/>
 
             <TextView
-                android:id="@+id/subtitle1"
+                android:id="@+id/subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hola, ¿Qué quieres que añadamos a la tabla?"
+                android:text="Hoy todo saldrá bien"
                 android:textColor="@color/text_dark"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/loginTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"/>
-
-            <TextView
-                android:id="@+id/subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/text_dark"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/subtitle1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"/>
+                app:layout_constraintHorizontal_bias="0.50"/>
 
             <TextView
                 android:id="@+id/fechaLabel"
@@ -192,17 +180,28 @@
                 app:layout_constraintTop_toBottomOf="@id/notasLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
             <Button
-                android:id="@+id/addButton"
+                android:id="@+id/eliminarDato"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="BORRAR"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/btn_orange"
+                android:onClick="eliminarDato"
+                app:layout_constraintTop_toBottomOf="@id/notasEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <Button
+                android:id="@+id/editarDato"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/btn_orange"
-                android:text="AÑADIR"
+                android:text="GUARDAR"
                 android:textColor="@android:color/white"
-                android:onClick="crearNuevoDato"
-                app:layout_constraintTop_toBottomOf="@id/notasEditText"
+                android:onClick="guardarCambios"
+                app:layout_constraintTop_toBottomOf="@id/eliminarDato"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -211,10 +210,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="@color/colorAccent"
                 android:text="VOLVER"
-                android:onClick="volvarAtrás"
-                app:layout_constraintTop_toBottomOf="@id/addButton"
+                android:onClick="volverAtras"
+                android:backgroundTint="@color/colorAccent"
+                app:layout_constraintTop_toBottomOf="@id/editarDato"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -223,8 +222,8 @@
     <!-- Logo encima del CardView -->
     <ImageView
         android:id="@+id/logoImage"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginTop="8dp"
         android:src="@drawable/logo_control_diabetes"

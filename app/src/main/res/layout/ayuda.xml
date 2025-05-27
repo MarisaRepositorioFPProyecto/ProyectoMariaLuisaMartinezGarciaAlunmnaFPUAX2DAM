@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_brown">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="24dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/bg_cream">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="32dp">
+
+            <TextView
+                android:text="¿TE AYUDO?"
+                android:id="@+id/tituloAyudo"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_dark"
+                android:layout_width="wrap_content"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/subtituloAyuda"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:text="Hola, aquí te dejo las preguntas más frecuentes. Gracias por pasarte por aquí."
+                android:textColor="@color/text_dark"
+                app:layout_constraintTop_toBottomOf="@id/tituloAyudo"
+                android:textSize="18sp"
+                tools:ignore="MissingConstraints" />
+            <!--pregunta 1-->
+            <TextView
+                android:text="¿Mis datos serán públicos?"
+                android:id="@+id/tituloPregunta1"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_dark"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/subtituloAyuda"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints" />
+            <TextView
+                android:text="No guardamos tus datos en ningún servidor, todo se queda guardado en tu propio teléfono. De esta manera nadie más que tu tiene acceso a tus datos."
+                android:id="@+id/respuesta1"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                android:textColor="@color/text_dark"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tituloPregunta1"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints" />
+            <!--pregunta 2-->
+            <TextView
+                android:text="¿Control Diabetes es gratuito?"
+                android:id="@+id/tituloPregunta2"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/text_dark"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/respuesta1"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints" />
+            <TextView
+                android:text="Completamente gratuito, no tiene ni anuncios, ni vendemos datos a tereceros, ya que los datos se registran en tu propio teléfono. La idea es ser un ayuda diaria para el control de tu Diabetes."
+                android:id="@+id/respuesta2"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                android:textColor="@color/text_dark"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tituloPregunta2"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints" />
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="VOLVER"
+                android:onClick="volvarAtras"
+                android:backgroundTint="@color/btn_orange"
+                android:textColor="@android:color/white"
+                app:layout_constraintTop_toBottomOf="@id/respuesta2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <!-- Logo encima del CardView -->
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logo_control_diabetes"
+        android:elevation="10dp"
+        android:contentDescription="@string/app_name"/>
+</FrameLayout>
+

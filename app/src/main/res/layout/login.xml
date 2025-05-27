@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="0dp"
+        android:layout_marginTop="35dp"
         app:cardCornerRadius="@dimen/card_radius"
         app:cardBackgroundColor="@color/bg_cream"
         app:cardUseCompatPadding="true">
@@ -41,10 +41,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Espero que tengas un gran día"
-                android:textColor="@color/text_dark"
-                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.56"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/loginTitle" />
 
@@ -58,7 +59,7 @@
                 android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.461"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/field_height"
                 android:background="@drawable/bg_edittext"
-                android:hint="XXXXXXXXX"
+                android:hint="Tu bonito nombre"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textColor="@color/text_dark"
@@ -108,7 +109,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/field_height"
                 android:background="@drawable/bg_edittext"
-                android:hint="••••••"
+                android:hint="Tu super clave"
                 android:inputType="textPassword"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -147,6 +148,7 @@
 
             <!-- Link recuperar -->
             <TextView
+                android:onClick="abrirRecuperarClave"
                 android:id="@+id/forgotPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

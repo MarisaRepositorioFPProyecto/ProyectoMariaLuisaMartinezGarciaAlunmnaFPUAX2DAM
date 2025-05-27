@@ -8,8 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <!--mis colores principales-->
-    <color name="colorPrimary">#4CAF50</color>
-    <color name="colorAccent">#FFC107</color>
+    <color name="colorPrimary">#D77103</color>
+    <color name="colorAccent">#FFC975</color>
     <!--otros colores-->
     <color name="bg_brown">#BDB2A7</color>
     <color name="bg_cream">#F7E4C4</color>

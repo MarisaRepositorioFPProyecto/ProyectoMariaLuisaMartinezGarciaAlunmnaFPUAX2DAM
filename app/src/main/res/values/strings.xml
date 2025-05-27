@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">APP_DIABETES</string>
     <string name="introduce_tu_pin">Introduce tu PIN</string>
+    <string name="qu_quieres_que_a_adamos_a_la_tabla">¿Qué quieres que añadamos a la tabla?</string>
 </resources>
